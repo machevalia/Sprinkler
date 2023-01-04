@@ -13,4 +13,5 @@ Arguments in this order:
 6. Finally, the IP address of the host you want to spray against. 
 
 Example image below demonstrates calling the script, output, me pausing the script by putting my system clock out of the authorized times, then resumption of the script once I put my system clock back in authorized times.
-<img src=/example.jpg>
+
+<img src=/spray_example.jpg>
