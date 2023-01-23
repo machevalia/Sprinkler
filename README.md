@@ -13,8 +13,10 @@ Arguments in this order:
 6. Sleep time in seconds - for example if you wanted to spray a single password every 15 minutes - 15 * 60 = 900
 7. Finally, the IP address of the host you want to spray against. 
 
-Example image below demonstrates calling the script, output, me pausing the script by putting my system clock out of the authorized times, then resumption of the script once I put my system clock back in authorized times. 
+Example daytime run:
+./sprinkler.sh -d 0600 1000 users.txt passwords.txt 900 localhost
 
-<img src=/spray_example.png>
+Example overnight run:
+./sprinkler.sh -n 2200 0700 users.txt passwords.txt 900 localhost
 
 
