@@ -29,12 +29,12 @@ CURRENT_TIME=$(date +%H)
 if [[ $time_check == "day" ]]; then
   while [[ 10#$CURRENT_TIME -lt 10#$START_TIME || 10#$CURRENT_TIME -ge 10#$STOP_TIME ]]; do
     sleep 300
-    CURRENT_TIME=$(date +%H)
+    CURRENT_TIME=$(date +%H%M)
   done
 else
   while [[ ! (10#$CURRENT_TIME -ge 10#$START_TIME && 10#$CURRENT_TIME -lt 10#$STOP_TIME) ]]; do
     sleep 300
-    CURRENT_TIME=$(date +%H)
+    CURRENT_TIME=$(date +%H%M)
   done
 fi
 
@@ -51,7 +51,7 @@ while read PASS; do
             echo "${DOMAIN}\\${USER}:${PASS} - LOGON SUCCESS at $(date)"
         fi
     done < <(cat "$USERS")
-    CURRENT_TIME=$(date +%H)
+    CURRENT_TIME=$(date +%H%M)
     if [[ $ITR -lt $LINES ]]; then
         echo -e "\e[33m[+]\e[0m Sleeping ${SLEEP} seconds."
         sleep ${SLEEP}
