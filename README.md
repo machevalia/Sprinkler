@@ -14,9 +14,9 @@ Arguments in this order:
 7. Finally, the IP address of the host you want to spray against. 
 
 Example daytime run:
-./sprinkler.sh -d 0600 1000 users.txt passwords.txt 900 localhost
+```./sprinkler.sh -d 0600 1000 users.txt passwords.txt 900 localhost```
 
 Example overnight run:
-./sprinkler.sh -n 2200 0700 users.txt passwords.txt 900 localhost
+```./sprinkler.sh -n 2200 0700 users.txt passwords.txt 900 localhost```
 
 
